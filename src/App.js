@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Components from "./Components";
+import Playground from "./Playground";
+import { DndContext } from "@dnd-kit/core";
+import { useState } from "react";
 
 function App() {
+  const [droppedItems, setDroppedItems] = useState([]);
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+
+    if (over) {
+      setDroppedItems((items) => [
+        ...items,
+        { id: active.id, data: active.data },
+      ]);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DndContext onDragEnd={handleDragEnd}>
+        <div style={{ display: "flex" }}>
+          {/* //* droppable area */}
+          <Playground
+            droppedItems={droppedItems}
+            setDroppedItems={setDroppedItems}
+          />
+
+          {/* //* draggable components */}
+          <Components />
+        </div>
+      </DndContext>
     </div>
   );
 }
