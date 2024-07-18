@@ -1,6 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import React from "react";
-import Item from "../Item";
+import DragItem from "../Item/DragItem";
 
 function DraggableItem({ item }) {
   const { id } = item || {};
@@ -23,7 +23,7 @@ function DraggableItem({ item }) {
       {...attributes}
       className="container"
     >
-      <Item item={item} />
+      <DragItem item={item} />
     </div>
   );
 }

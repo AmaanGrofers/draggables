@@ -2,10 +2,10 @@ import React from "react";
 import DraggableItem from "./DraggableItem";
 
 const data = [
-  { id: 1, data: "Component 1" },
-  { id: 2, data: "Component 2" },
-  { id: 3, data: "Component 3" },
-  { id: 4, data: "Component 4" },
+  { id: 1, name: "Component 1" },
+  { id: 2, name: "Component 2" },
+  { id: 3, name: "Component 3" },
+  { id: 4, name: "Component 4" },
 ];
 
 function Components() {

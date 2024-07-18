@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Components from "./Components";
 import Playground from "./Playground";
@@ -12,9 +11,14 @@ function App() {
     const { active, over } = event;
 
     if (over) {
+      console.log("on drop  :", event);
+
+      const droppableId = over.id.split("-")[0]; // Extract the conceptual id
+      const index = over.id.split("-")[1]; // Extract the index
+
       setDroppedItems((items) => [
         ...items,
-        { id: active.id, data: active.data },
+        { droppableId, index, data: active },
       ]);
     }
   };

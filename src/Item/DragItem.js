@@ -1,6 +1,6 @@
 import React from "react";
 
-function Item({ item }) {
+function DragItem({ item }) {
   return (
     <div style={{ padding: "20px", border: "1px solid grey" }}>
       Draggable Item {item?.id}
@@ -8,4 +8,4 @@ function Item({ item }) {
   );
 }
 
-export default Item;
+export default DragItem;
