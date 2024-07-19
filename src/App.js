@@ -11,15 +11,7 @@ function App() {
     const { active, over } = event;
 
     if (over) {
-      console.log("on drop  :", event);
-
-      const droppableId = over.id.split("-")[0]; // Extract the conceptual id
-      const index = over.id.split("-")[1]; // Extract the index
-
-      setDroppedItems((items) => [
-        ...items,
-        { droppableId, index, data: active },
-      ]);
+      setDroppedItems((items) => [...items, active.data?.current]);
     }
   };
 
