@@ -4,6 +4,11 @@ import Playground from "./Playground";
 import { DndContext } from "@dnd-kit/core";
 import { useState } from "react";
 
+const columns = 12;
+const playground_width = 1000;
+const each_column = playground_width / columns;
+const MINIMUM_COL_REQUIRED = 1;
+
 function App() {
   const [droppedItems, setDroppedItems] = useState([]);
 

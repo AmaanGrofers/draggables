@@ -33,7 +33,7 @@
 
 // export default Playground;
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DndContext, useDroppable, DragOverlay } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -48,8 +48,12 @@ export default function Playground({
   droppedItems: items = [],
   setDroppedItems: setItems = () => {},
 }) {
-  const { isOver, setNodeRef } = useDroppable({ id: "droppable" });
   const [activeId, setActiveId] = useState(null);
+  const [balanceCol, setBalanceCol] = useState(columns);
+  const { isOver, setNodeRef } = useDroppable({
+    id: "droppable",
+    disabled: balanceCol === 0,
+  });
 
   const handleDragStart = (event) => {
     setActiveId(event.active.id);
@@ -74,16 +78,43 @@ export default function Playground({
     gap: "4px",
     backgroundColor: isOver ? "lightgreen" : "lightblue",
     border: "2px dashed black",
-    flex: 4,
+    // flex: 4,
+    width: "1016px", // added padding, remove padding from ResizableItem
+    margin: "8px",
+    padding: "8px",
   };
+
+  console.log("items : ", items);
+
+  const balanceColRef = useRef(columns);
+
+  useEffect(() => {
+    console.log("launched..........");
+    balanceColRef.current = items.reduce(
+      (total, item) => total - (item.width || 4),
+      columns
+    );
+
+    setBalanceCol(balanceColRef.current);
+  });
+  // }, [JSON.parse(JSON.stringify(items))]);
+  // }, [items]);
 
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div ref={setNodeRef} style={style} id="playground">
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          {items.map((item) => (
-            <ResizableItem key={item?.id} id={item?.id} />
-          ))}
+          {items.map((item) => {
+            return (
+              <ResizableItem
+                key={item?.id}
+                id={item?.id}
+                setItems={setItems}
+                balanceCol={balanceCol}
+                setBalanceCol={setBalanceCol}
+              />
+            );
+          })}
         </SortableContext>
       </div>
       <DragOverlay>
