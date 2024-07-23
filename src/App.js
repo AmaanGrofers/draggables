@@ -1,7 +1,7 @@
 import "./App.css";
 import Components from "./Components";
 import Playground from "./Playground";
-import { DndContext } from "@dnd-kit/core";
+import { closestCenter, DndContext } from "@dnd-kit/core";
 import { useState } from "react";
 
 const columns = 12;
@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div className="App">
-      <DndContext onDragEnd={handleDragEnd}>
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <div style={{ display: "flex" }}>
           {/* //* droppable area */}
           <Playground

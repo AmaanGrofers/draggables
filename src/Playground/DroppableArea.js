@@ -17,6 +17,7 @@ export default function DroppableArea({
   const [items, setItems] = useState(Items);
   const [activeId, setActiveId] = useState(null);
   const [balanceCol, setBalanceCol] = useState(columns);
+
   const { isOver, setNodeRef } = useDroppable({
     id,
     disabled: balanceCol === 0,
@@ -29,7 +30,6 @@ export default function DroppableArea({
   const handleDragEnd = (event) => {
     const { active, over } = event;
     console.log("event on drag : ", event);
-    console.log("over : ", over);
     if (over && active.id !== over.id) {
       setItems((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
@@ -52,14 +52,12 @@ export default function DroppableArea({
     padding: "8px",
   };
 
-  console.log("Items : ", Items);
-
-  console.log("items : ", items);
+  // console.log("Items : ", Items);
+  // console.log("items : ", items);
 
   const balanceColRef = useRef(columns);
 
   useEffect(() => {
-    console.log("launched..........");
     balanceColRef.current = items.reduce(
       (total, item) => total - (item.width || 4),
       columns

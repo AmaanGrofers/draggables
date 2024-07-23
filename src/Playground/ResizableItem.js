@@ -75,9 +75,16 @@ function ResizableItem({
         });
       }}
     >
-      <div ref={setNodeRef} {...attributes} {...listeners} draggable>
-        <div>Area {droppableAreaId}</div>
-        <div>Item {data?.id}</div>
+      <div
+        ref={setNodeRef}
+        {...attributes}
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <div>
+          <div>Area {droppableAreaId}</div>
+          <div>Item {data?.id}</div>
+        </div>
+        <button {...listeners}>Drag handle</button>
       </div>
     </Resizable>
   );

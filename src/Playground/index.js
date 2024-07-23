@@ -6,7 +6,6 @@ import DroppableArea from "./DroppableArea";
 // have index = index+1, to add component on bottom of already added components..
 
 function Playground({ droppedItems = [], setDroppedItems = () => {} }) {
-  console.log("droppedItems :  ", droppedItems);
   const id = "droppable_area";
 
   return (
