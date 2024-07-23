@@ -8,13 +8,19 @@ const playground_width = 1000;
 const each_column = playground_width / columns;
 const MINIMUM_COL_REQUIRED = 1;
 
-function ResizableItem({ id, setItems = () => {}, balanceCol, setBalanceCol }) {
+function ResizableItem({
+  droppableAreaId,
+  data = {},
+  setItems = () => {},
+  balanceCol,
+  setBalanceCol,
+}) {
   // var playground = document.getElementById("playground");
   // var playground_width = playground.offsetWidth;
   // console.log("playground_width : ", playground_width);
 
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+    useSortable({ id: droppableAreaId });
 
   const [state, setState] = useState({
     // width: 4,
@@ -63,14 +69,15 @@ function ResizableItem({ id, setItems = () => {}, balanceCol, setBalanceCol }) {
 
         setItems((pv) => {
           let items = pv;
-          let idx = items.findIndex((item) => item.id === id);
+          let idx = items.findIndex((item) => item.data.id === data.id);
           items[idx] = { ...items[idx], width: newWidth, height: newHeight };
           return items;
         });
       }}
     >
       <div ref={setNodeRef} {...attributes} {...listeners} draggable>
-        <div>Item {id}</div>
+        <div>Area {droppableAreaId}</div>
+        <div>Item {data?.id}</div>
       </div>
     </Resizable>
   );

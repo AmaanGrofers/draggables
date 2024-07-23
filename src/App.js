@@ -15,8 +15,13 @@ function App() {
   const handleDragEnd = (event) => {
     const { active, over } = event;
 
+    console.log("event  : ", event);
+
     if (over) {
-      setDroppedItems((items) => [...items, active.data?.current]);
+      setDroppedItems((items) => ({
+        ...items,
+        [over.id]: [...items[over.id], active.data?.current],
+      }));
     }
   };
 
